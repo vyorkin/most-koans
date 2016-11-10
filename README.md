@@ -33,6 +33,18 @@ In test-driven development (TDD) the mantra has always been red: write a failing
 
 With the koans, you will need to run the tests and see it fail (red), make the test pass (green), then take a moment and reflect upon the test to see what it is teaching you and improve the code to better communicate its intent (refactor).
 
+### Contributing
+
+Patches are encouraged!
+Just add whatever the fuck you want to.
+
+### Credits
+
+The main idea is taken from the
+[clojure-koans](https://github.com/functional-koans/clojure-koans).
+But the project structure and many other things are borrowed from the
+[RxJSKoans](https://github.com/Reactive-Extensions/RxJSKoans).
+
 ### License
 
 [WTFPL](http://www.wtfpl.net/) – Do What the Fuck You Want to Public License.
