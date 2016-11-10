@@ -1,0 +1,12 @@
+{
+  "name": "most-koans",
+  "version": "0.1.0",
+  "description": "The Koans walk you along the path to enlightment in order to learn Most.js",
+  "main": "index.js",
+  "repository": {
+    "url": "https://github.com/vyorkin/most-koans",
+    "type": "git"
+  },
+  "author": "Vasiliy Yorkin <vasiliy.yorkin@gmail.com> (https://github.com/vyorkin)",
+  "license": "WTFPL"
+}
