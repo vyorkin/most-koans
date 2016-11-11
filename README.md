@@ -2,7 +2,7 @@
 # 公案
 
 The [Most.js](https://github.com/cujojs/most) Koans are a fun and easy way to
-get started this awesome reactive programming toolkit. No experience assumed or
+get started with this awesome reactive programming toolkit. No experience assumed or
 required. Just follow the instructions below to start making tests pass!
 
 ### Getting Started
@@ -29,9 +29,12 @@ You can run the tests by calling `npm test` at your terminal window.
 
 ### Red, Green, Refactor
 
-In test-driven development (TDD) the mantra has always been red: write a failing test and run it, green: make the test pass, and refactor: look at the code and see if you can make it any better.
+In test-driven development (TDD) the mantra has always been red: write a failing test and run it,
+green: make the test pass, and refactor: look at the code and see if you can make it any better.
 
-With the koans, you will need to run the tests and see it fail (red), make the test pass (green), then take a moment and reflect upon the test to see what it is teaching you and improve the code to better communicate its intent (refactor).
+With the koans, you will need to run the tests and see it fail (red),
+make the test pass (green), then take a moment and reflect upon the test
+to see what it is teaching you and improve the code to better communicate its intent (refactor).
 
 ### Contributing
 
