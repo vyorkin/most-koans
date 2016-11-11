@@ -13,43 +13,57 @@ test('the map transformation relates a stream to another', t => {
 });
 
 test('you can create a new stream by replacing each event with a constant', t => {
-  let result = [];
+  const results = [];
   return most.from([1, 2, 3])
     .constant(6)
-    .forEach(x => { result.push(x) })
-    .then(() => t.deepEqual([6, 6, 6], result));
+    .forEach(x => { results.push(x) })
+    .then(() => t.deepEqual([6, 6, 6], results));
 });
 
 test('scan emits incremental results', t => {
   const letters = ['a', 'b', 'c'];
-  let result = [];
+  const results = [];
   return most.from(letters)
     .scan((acc, letter) => acc + letter, '')
-    .observe(x => { result.push(x) })
-    .then(() => t.deepEqual(['', 'a', 'ab', 'abc'], result));
+    .observe(x => { results.push(x) })
+    .then(() => t.deepEqual(['', 'a', 'ab', 'abc'], results));
 });
 
-test('chain may be a cartesian product', t => {
-  // stream:   12|
-  // f(1):     1---1---1---1---1|
-  // f(2):      2-------2-------2-------2-------2|
-  // chain(f): 12--1---12--1---12-------2-------2|
+test('chain maps each event into a stream and then merges these streams', t => {
+  // stream:     1-2-3|
+  // f(1):       1|
+  // f(2):       1--2|
+  // f(3):       1--2--3|
+  // flatMap(f): 1-1-1--2-2--3|
 
-  let result = [];
-  return most.from([1, 2]).chain( // alias: flatMap
+  const results = [];
+  return most.from([1, 2, 3])
+    .chain(x => most.iterate(x => x + 1, 1).take(x))
+    .observe(x => { results.push(x) })
+    .then(() => t.deepEqual([1, 1, 1, 2, 2, 3], results));
+});
+
+test('and flatMap is no different (its just an alias)', t => {
+  // stream:   1-2|
+  // f(1):     1---1---1---1---1|
+  // f(2):       2-------2-------2-------2-------2|
+  // chain(f): 1-2-1---1-2-1---1-2-------2-------2|
+
+  const results = [];
+  return most.from([1, 2]).flatMap(
       x => most.periodic(x * 25)
         .take(5)
         .constant(x)
         .delay(x - 1)
     )
-    .observe(x => { result.push(x) })
-    .then(() => t.deepEqual([1, 2, 1, 1, 2, 1, 1, 2, 2, 2], result));
+    .observe(x => { results.push(x) })
+    .then(() => t.deepEqual([1, 2, 1, 1, 2, 1, 1, 2, 2, 2], results));
 });
 
-test('and the beginning may end, and the ending begin', t => {
-  let result = [];
+test('the beginning may end, and the ending begin', t => {
+  const results = [];
   return most.from(['a', 'b', 'c'])
     .continueWith(() => most.iterate(x => x + 1, 1).take(3))
-    .observe(x => { result.push(x) })
-    .then(() => t.deepEqual(['a', 'b', 'c', 1, 2, 3], result));
+    .observe(x => { results.push(x) })
+    .then(() => t.deepEqual(['a', 'b', 'c', 1, 2, 3], results));
 });

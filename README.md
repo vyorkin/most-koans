@@ -3,7 +3,7 @@
 
 The [Most.js](https://github.com/cujojs/most) Koans are a fun and easy way to
 get started this awesome reactive programming toolkit. No experience assumed or
-required. Just follow the instruction below to start making tests pass!
+required. Just follow the instructions below to start making tests pass!
 
 ### Getting Started
 
@@ -43,7 +43,8 @@ Just add whatever the fuck you want to.
 
 The main idea is taken from the
 [clojure-koans](https://github.com/functional-koans/clojure-koans).
-But the project structure and many other things are borrowed from the
+
+The project structure and many other things are borrowed from the
 [RxJSKoans](https://github.com/Reactive-Extensions/RxJSKoans).
 
 ### License
