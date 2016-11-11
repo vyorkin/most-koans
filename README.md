@@ -7,9 +7,8 @@ required. Just follow the instructions below to start making tests pass!
 
 ### Getting Started
 
-The koans are broken out into areas by file, events are covered in
-`05_events.js`, time is introduced in `04_time.js`, etc. The are presented in
-order in the `index.js` file.
+The koans are broken out into chapters by file, transformations are covered in
+`02_transforming_streams.js`, higher order streams is introduced in `08_combining_higher_order_streams.js`, etc.
 
 ### Installing
 
