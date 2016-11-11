@@ -29,13 +29,27 @@ test('scan emits incremental results', t => {
     .then(() => t.deepEqual(['', 'a', 'ab', 'abc'], result));
 });
 
-test('chain is a cartesian product', t => {
-  // stream:            -a----b----c|
-  //
-  // f(a):               1--2--3|
-  // f(b):                    1----2----3|
-  // f(c):                           1-2-3|
-  //
-  // stream.chain(f):   -1--2-13---2-1-233|
-  t.pass();
+test('chain may be a cartesian product', t => {
+  // stream:   12|
+  // f(1):     1---1---1---1---1|
+  // f(2):      2-------2-------2-------2-------2|
+  // chain(f): 12--1---12--1---12-------2-------2|
+
+  let result = [];
+  return most.from([1, 2]).chain( // alias: flatMap
+      x => most.periodic(x * 25)
+        .take(5)
+        .constant(x)
+        .delay(x - 1)
+    )
+    .observe(x => { result.push(x) })
+    .then(() => t.deepEqual([1, 2, 1, 1, 2, 1, 1, 2, 2, 2], result));
+});
+
+test('and the beginning may end, and the ending begin', t => {
+  let result = [];
+  return most.from(['a', 'b', 'c'])
+    .continueWith(() => most.iterate(x => x + 1, 1).take(3))
+    .observe(x => { result.push(x) })
+    .then(() => t.deepEqual(['a', 'b', 'c', 1, 2, 3], result));
 });

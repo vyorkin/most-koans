@@ -16,6 +16,9 @@ test('promise outcome is also a stream', t => {
 test('you can create an infite stream of periodic events', t => {
   // periodic(2, x): x-x-x-x-x-x->
   // periodic(5, x): x----x----x->
+  //          |  |
+  //          |  -- value
+  //        period
 
   let result = [];
   return most.periodic(2, 1)
@@ -61,10 +64,22 @@ test('you can use generators as well', t => {
   }
 });
 
+test('even async generators', t => {
+  function* countdown() {
+    for (let i = 3; i > 0; i--) {
+      yield delay(i);
+    }
+  }
+
+  let result = 0;
+  return most.generate(countdown, 100, 3)
+    .observe(x => { result += x })
+    .then(() => t.is(6, result));
+});
+
 // this one is too complex
 test('unfold is powerful', t => {
   let values = [];
-
   return most.unfold(
     ms => delay(ms)
       .then(value => ({
