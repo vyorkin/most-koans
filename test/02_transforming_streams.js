@@ -38,26 +38,9 @@ test('chain maps each event into a stream and then merges these streams', t => {
 
   const results = [];
   return most.from([1, 2, 3])
-    .chain(x => most.iterate(x => x + 1, 1).take(x))
+    .chain(x => most.iterate(x => x + 1, 1).take(x)) // alias: flatMap
     .observe(x => { results.push(x) })
     .then(() => t.deepEqual([1, 1, 1, 2, 2, 3], results));
-});
-
-test('and flatMap is an alias for chain', t => {
-  // stream:   1-2|
-  // f(1):     1---1---1---1---1|
-  // f(2):       2-------2-------2-------2-------2|
-  // chain(f): 1-2-1---1-2-1---1-2-------2-------2|
-
-  const results = [];
-  return most.from([1, 2]).flatMap(
-      x => most.periodic(x * 25)
-        .take(5)
-        .constant(x)
-        .delay(x - 1)
-    )
-    .observe(x => { results.push(x) })
-    .then(() => t.deepEqual([1, 2, 1, 1, 2, 1, 1, 2, 2, 2], results));
 });
 
 test('the beginning may end, and the ending begin', t => {

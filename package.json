@@ -10,7 +10,9 @@
   "author": "Vasiliy Yorkin <vasiliy.yorkin@gmail.com> (https://github.com/vyorkin)",
   "license": "WTFPL",
   "dependencies": {
-    "most": "^1.0.5"
+    "most": "^1.0.5",
+    "ramda": "^0.22.1",
+    "transducers-js": "^0.4.174"
   },
   "devDependencies": {
     "ava": "^0.16.0",
