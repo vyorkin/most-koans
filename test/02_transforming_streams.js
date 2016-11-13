@@ -76,3 +76,26 @@ test('use ap to apply the latest function to the latest value', t => {
     .observe(x => { result += x })
     .then(() => t.is(30, result));
 });
+
+test('you can add timestamps, if you want to', t => {
+  return most.periodic(10)
+    .take(3)
+    .constant(1)
+    .timestamp()
+    .map(o => o.time)
+    .reduce((prev, curr) => curr > prev) // every next timestamp is greater than previous
+    .then(result => t.truthy(result));
+});
+
+test('or just perform any side-effect', t => {
+  const results = [];
+  const effects = [];
+
+  return most.from([1, 2, 3])
+    .tap(x => { effects.push(x + 1) })
+    .observe(x => { results.push(x) })
+    .then(() => {
+      t.deepEqual([1, 2, 3], results);
+      t.deepEqual([2, 3, 4], effects);
+    });
+});
