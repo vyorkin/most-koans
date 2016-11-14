@@ -1,13 +1,14 @@
 {
   "extends": [
-    "airbnb",
+    "airbnb/base",
     "plugin:fp/recommended",
+    "plugin:ava/recommended",
   ],
   "parser": "babel-eslint",
   "plugins": [
     "fp",
     "prefer-object-spread",
-    "promise",
+    "ava",
   ],
   "rules": {
     "no-confusing-arrow": 0,
@@ -17,17 +18,15 @@
     "arrow-parens": 0,
     "comma-dangle": ["error", "always-multiline"],
     "operator-linebreak": ["error", "after"],
+    "arrow-body-style": 0,
+    "no-plusplus": 0,
+    "no-unused-vars": ["error", { "varsIgnorePattern": "__" }],
 
     "fp/no-class": 0,
     "fp/no-this": 0,
     "fp/no-nil": 0,
     "fp/no-mutation": 0,
     "fp/no-unused-expression": 0,
-
-    "promise/param-names": 2,
-    "promise/always-return": 2,
-    "promise/catch-or-return": 2,
-    "promise/no-native": 0,
 
     "prefer-object-spread/prefer-object-spread": 2,
   },

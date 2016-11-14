@@ -16,17 +16,14 @@ test('what comes in goes out', t => {
   return most.just(101).observe(x => t.is(x, 101));
 });
 
-test('you can create a stream from any Iterable', t => {
+test('you can create a stream from any Iterable', async t => {
   let result = 0;
-  return most.from([1, 2, 3, 4])
-    .observe(x => { result = x })
-    .then(() => t.is(result, 4));
+  await most.from([1, 2, 3, 4]).observe(x => { result = x; });
+  t.is(result, 4);
 });
 
-test('everything counts', t => {
+test('everything counts', async t => {
   let count = 0;
-  const numbers = [1, 2, 3];
-  return most.from(numbers)
-    .observe(x => { count += x })
-    .then(() => t.is(count, 6));
+  await most.from([1, 2, 3]).observe(x => { count += x; });
+  t.is(count, 6);
 });

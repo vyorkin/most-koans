@@ -1,4 +1,7 @@
 test:
 	npm test
 
-.PHONY: test
+lint:
+	npm run lint --silent
+
+.PHONY: test lint
