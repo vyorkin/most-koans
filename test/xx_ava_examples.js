@@ -1,3 +1,5 @@
+/* eslint-disable fp/no-loops,fp/no-let,ava/test-title,ava/no-todo-test,ava/no-skip-test,ava/prefer-async-await,max-len */
+
 import test from 'ava';
 
 const someAsyncFunction = () => new Promise(
@@ -35,9 +37,11 @@ test.skip('I should fail', t => {
 });
 
 test.failing('I should fail as well', t => {
-  plan(1);
+  t.plan(1);
 
   someAsyncFunction().then(() => t.pass());
 });
 
 test.todo('do something dude');
+
+/* eslint-enable fp/no-loops,fp/no-let,ava/test-title,ava/no-todo-test,ava/no-skip-test,ava/prefer-async-await,max-len */

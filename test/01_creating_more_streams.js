@@ -1,3 +1,5 @@
+/* eslint-disable fp/no-let */
+
 import test from 'ava';
 import sinon from 'sinon';
 import * as most from 'most';
@@ -30,10 +32,20 @@ test('you can create an infite stream of periodic events', async t => {
 test('stream may end before it even started ', async t => {
   const events = sinon.spy();
   await most.empty().observe(events);
-  t.false(events.calledOnce);
+  t.false(events.called);
 });
 
-test.todo('or it could be an empty stream that never ends');
+test.cb('or it could be an empty stream that never ends', t => {
+  const events = sinon.spy();
+
+  // lets give it a chance to finish execution
+  setImmediate(() => {
+    t.false(events.calledOnce);
+    t.end();
+  });
+
+  most.never().observe(events);
+});
 
 test('stream may be infinite', async t => {
   let sum = 0;
@@ -51,6 +63,7 @@ test('the iterating function may return a promise', async t => {
   t.is(3, result);
 });
 
+/* eslint-disable no-unused-vars,fp/no-loops,no-unreachable */
 test('you can use generators as well', t => {
   function* numbers() {
     for (let i = 0; ; i++) {
@@ -64,6 +77,7 @@ test('you can use generators as well', t => {
       .then(() => t.is(sum, 6));
   }
 });
+/* eslint-enable no-unused-vars,fp/no-loops */
 
 test('even async generators', async t => {
   function* countdown() {
@@ -79,10 +93,11 @@ test('even async generators', async t => {
   t.is(6, result);
 });
 
+/* eslint-disable fp/no-mutating-methods */
 test('unfold is powerful', async t => {
   // TODO: this one is too complex: explain or simplify
 
-  let values = [];
+  const values = [];
   const final = await most.unfold(
     ms => delay(ms)
       .then(value => ({
@@ -95,3 +110,6 @@ test('unfold is powerful', async t => {
   t.deepEqual([0, 1, 2, 3], values);
   t.is(final, 4);
 });
+/* eslint-enable fp/no-mutating-methods */
+
+/* eslint-enable fp/no-let */
