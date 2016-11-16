@@ -6,7 +6,23 @@ const __ = 'Fill in the blank';
 
 const average = values => values.reduce((sum, x) => sum + x, 0) / values.length;
 
-test('loop is kind of a contrary of scan', async t => {
+test('loops are useful', async t => {
+  const low = 11;
+  const high = 17;
+  const delta = 1 + (high - low);
+
+  const source = most.periodic(10).loop(x => ({
+    seed: x + 1,
+    value: low + (x % delta),
+  }), 0);
+
+  const result = await run(source).tick(60);
+
+  t.deepEqual([11, 12, 13, 14, 15, 16, 17], result.events);
+});
+
+
+test('loop may be a kind of contrary to scan', async t => {
   const source = most.iterate(x => x + 1, 0);
 
   // source:      --0----------1----------2----------3----- - -

@@ -29,7 +29,7 @@ test('you can create an infite stream of periodic events', async t => {
   t.deepEqual([1, 1, 1], result.events);
 });
 
-test('stream may end before it even started ', async t => {
+test('stream may end before it even started', async t => {
   const events = sinon.spy();
   await most.empty().observe(events);
   t.false(events.called);
@@ -49,18 +49,23 @@ test.cb('or it could be an empty stream that never ends', t => {
 
 test('stream may be infinite', async t => {
   let sum = 0;
+
+  // TODO: show that this stream is actually infinite
+  // instead of consuming just 4 elements lol
+
   await most.iterate(x => x + 1, 0)
     .take(4)
     .observe(x => { sum += x; });
+
   t.is(sum, 6);
 });
 
 test('the iterating function may return a promise', async t => {
   let result = 0;
-  await most.iterate(x => delay(x + 1), 0)
+  await most.iterate(x => delay(x + 1), 1)
     .take(3)
     .observe(x => { result += x; });
-  t.is(3, result);
+  t.is(6, result);
 });
 
 /* eslint-disable no-unused-vars,fp/no-loops,no-unreachable */

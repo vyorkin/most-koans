@@ -1,6 +1,7 @@
 import test from 'ava';
 import * as most from 'most';
 import { run } from 'most-test';
+import { identity } from 'ramda';
 
 const __ = 'Fill in the blank';
 
@@ -59,7 +60,7 @@ test('another stream may be a signal to stop', async t => {
 
   const numbers = [2, 4, 8, 16, 32, 64];
 
-  const source = most.from(numbers).zip(x => x, most.periodic(50));
+  const source = most.from(numbers).zip(identity, most.periodic(50));
   const signal = most.of(1).delay(151);
   const stream = source.until(signal); // alias: takeUntil
   const result = await run(stream).tick(200);
@@ -95,7 +96,7 @@ test('piece of time', async t => {
   const source = most
     .iterate(x => x + 1, 1)
     .take(6)
-    .zip(x => x, most.periodic(50));
+    .zip(identity, most.periodic(50));
 
   const piece = timeWindow(150, 100);
   const stream = source.during(piece);

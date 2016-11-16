@@ -1,12 +1,15 @@
 import test from 'ava';
 import * as most from 'most';
+import { identity } from 'ramda';
 
 const __ = 'Fill in the blank';
 
-const numbers = most.from([1, 2, 3]).zip(x => x, most.periodic(1));
-const letters = most.from(['a', 'b', 'c']).zip(x => x, most.periodic(1));
+const periodicFrom = (source, period = 1, mapper = identity) =>
+  most.from(source).zip(mapper, most.periodic(period));
 
 test('streams can be merged', async t => {
+  const numbers = periodicFrom([1, 2, 3]);
+  const letters = periodicFrom(['a', 'b', 'c']);
   const stream = most.merge(numbers, letters);
   const result = await stream.reduce((acc, v) => acc.concat(v), []);
 
@@ -14,6 +17,8 @@ test('streams can be merged', async t => {
 });
 
 test('or concatenated', async t => {
+  const numbers = periodicFrom([1, 2, 3]);
+  const letters = periodicFrom(['a', 'b', 'c']);
   const stream = most.concat(numbers, letters);
   const result = await stream.reduce((acc, v) => acc.concat(v), []);
 
@@ -22,9 +27,16 @@ test('or concatenated', async t => {
 
 // make a koan demonstrating the difference between these 2:
 
+// test('title', async t => {
+//   await most.from([1, 2, 3])
+//     .concatMap(x => most.of(x).delay(1000))
+//     .tap(console.log)
+//     .drain();
+// });
+
 // 1)
 // const source = most.from(numbers)
-//   .zip(x => x, most.periodic(50));
+//   .zip(identity, most.periodic(50));
 
 // 2)
 // const source = most.from(numbers)
