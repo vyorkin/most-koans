@@ -4,7 +4,7 @@ import * as most from 'most';
 const __ = 'Fill in the blank';
 
 test('you can recover from a stream failure', async t => {
-  let result = 0; // eslint-disable-line fp/no-let
+  let result = 0;
   await most.fromPromise(Promise.reject(-1))
     .recoverWith(e => most.just(e + 2)) // alias: flatMapError
     .observe(x => { result = x; });

@@ -1,5 +1,3 @@
-/* eslint-disable fp/no-let */
-
 import test from 'ava';
 import * as most from 'most';
 
@@ -29,5 +27,3 @@ test('everything counts', async t => {
   await most.from([1, 2, 3]).observe(x => { count += x; });
   t.is(count, 6);
 });
-
-/* eslint-enable fp/no-let */

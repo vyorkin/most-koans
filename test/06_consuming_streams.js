@@ -1,32 +1,24 @@
 import test from 'ava';
 import { spy } from 'sinon';
 import * as most from 'most';
-import * as subject from 'most-subject';
 
 const __ = 'Fill in the blank';
 
-test('stream are compatible with ES Observable spec draft', t => {
-  const source = subject.sync();
+test.cb('streams are compatible with ES Observable spec draft', t => {
   const observer = {
     next: spy(),
     error: spy(),
     complete: spy(),
   };
 
-  const subscription = source.subscribe(observer);
-  source.next(1);
-  source.next(2);
+  most.from([1, 2, 3]).subscribe(observer);
 
-  subscription.unsubscribe();
-
-  source.next(3);
-  source.next(4);
-
-  source.complete();
-
-  t.deepEqual(observer.next.args, [[1], [2]]);
-  t.false(observer.error.called);
-  t.false(observer.complete.called);
+  setImmediate(() => {
+    t.deepEqual(observer.next.args, [[1], [2], [3]]);
+    t.false(observer.error.called);
+    t.true(observer.complete.called);
+    t.end();
+  });
 });
 
 test('streams are reducible to promise for the ultimate result', async t => {
@@ -36,12 +28,12 @@ test('streams are reducible to promise for the ultimate result', async t => {
   t.is(9, result);
 });
 
-test('sometimes you just dont give a fuck about the events', async t => {
+test('use drain if you dont give a fuck about the events', async t => {
   const results = [];
   const events = spy();
 
   await most.from([1, 2, 3])
-    .tap(x => { results.push(x); }) // eslint-disable-line fp/no-mutating-methods
+    .tap(x => { results.push(x); })
     .drain();
 
   t.false(events.called);

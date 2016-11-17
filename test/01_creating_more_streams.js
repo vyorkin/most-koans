@@ -1,5 +1,3 @@
-/* eslint-disable fp/no-let */
-
 import test from 'ava';
 import sinon from 'sinon';
 import * as most from 'most';
@@ -47,11 +45,8 @@ test.cb('or it could be an empty stream that never ends', t => {
   most.never().observe(events);
 });
 
-test('stream may be infinite', async t => {
+test('you can build a stream by computing successive items iteratively', async t => {
   let sum = 0;
-
-  // TODO: show that this stream is actually infinite
-  // instead of consuming just 4 elements lol
 
   await most.iterate(x => x + 1, 0)
     .take(4)
@@ -82,11 +77,11 @@ test('you can use generators as well', t => {
       .then(() => t.is(sum, 6));
   }
 });
-/* eslint-enable no-unused-vars,fp/no-loops */
+/* eslint-enable no-unused-vars,no-unreachable */
 
 test('even async generators', async t => {
   function* countdown() {
-    for (let i = 3; i > 0; i--) { // eslint-disable-line fp/no-loops,fp/no-let
+    for (let i = 3; i > 0; i--) { // eslint-disable-line fp/no-loops
       yield delay(i);
     }
   }
@@ -97,8 +92,8 @@ test('even async generators', async t => {
 
   t.is(6, result);
 });
+/* eslint-enable no-unused-vars,fp/no-loops */
 
-/* eslint-disable fp/no-mutating-methods */
 test('unfold is powerful', async t => {
   // TODO: this one is too complex: explain or simplify
 
@@ -115,6 +110,3 @@ test('unfold is powerful', async t => {
   t.deepEqual([0, 1, 2, 3], values);
   t.is(final, 4);
 });
-/* eslint-enable fp/no-mutating-methods */
-
-/* eslint-enable fp/no-let */

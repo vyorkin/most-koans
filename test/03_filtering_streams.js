@@ -1,5 +1,3 @@
-/* eslint-disable fp/no-let */
-
 import test from 'ava';
 import * as most from 'most';
 
@@ -10,7 +8,7 @@ test('maps and filters may be combined', async t => {
   await most.from([1, 2, 3, 4, 5])
     .map(x => x * x)
     .filter(x => x % 2 === 0)
-    .observe(x => { result.push(x); }); // eslint-disable-line fp/no-mutating-methods
+    .observe(x => { result.push(x); });
 
   t.deepEqual([4, 16], result);
 });
@@ -31,5 +29,3 @@ test('if you need to, you can provide your own equality function', async t => {
 
   t.is('helo', word);
 });
-
-/* eslint-enable fp/no-let */
