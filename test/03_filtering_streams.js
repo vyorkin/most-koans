@@ -10,7 +10,7 @@ test('maps and filters may be combined', async t => {
     .filter(x => x % 2 === 0)
     .observe(x => { result.push(x); });
 
-  t.deepEqual([4, 16], result);
+  t.deepEqual(__, result);
 });
 
 test('you can skip repeated events', async t => {
@@ -19,7 +19,7 @@ test('you can skip repeated events', async t => {
     .skipRepeats()
     .reduce((acc, x) => acc + x, 0);
 
-  t.is(6, sum);
+  t.is(__, sum);
 });
 
 test('if you need to, you can provide your own equality function', async t => {
@@ -27,5 +27,5 @@ test('if you need to, you can provide your own equality function', async t => {
     .skipRepeatsWith((x, y) => x.toLowerCase() === y.toLowerCase())
     .reduce((acc, letter) => acc + letter, '');
 
-  t.is('helo', word);
+  t.is(__, word);
 });

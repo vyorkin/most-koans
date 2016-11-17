@@ -18,7 +18,7 @@ test('loops are useful', async t => {
 
   const result = await run(source).tick(60);
 
-  t.deepEqual([11, 12, 13, 14, 15, 16, 17], result.events);
+  t.deepEqual(__, result.events);
 });
 
 
@@ -42,5 +42,5 @@ test('loop may be a kind of contrary to scan', async t => {
 
   const result = await run(stream).tick();
 
-  t.deepEqual([0, 0.5, 1, 1.5], result.events);
+  t.deepEqual(__, result.events);
 });

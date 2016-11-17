@@ -17,7 +17,7 @@ test('you can apply a transducer to a stream', async t => {
     .transduce(transducer)
     .observe(x => { results.push(x); }); // eslint-disable-line fp/no-mutating-methods
 
-  t.deepEqual([3, 5], results);
+  t.deepEqual(__, results);
 });
 
 test('use anything that implements the de facto transducer protocol', async t => {
@@ -33,5 +33,5 @@ test('use anything that implements the de facto transducer protocol', async t =>
     .transduce(transducer)
     .observe(x => { results.push(x); }); // eslint-disable-line fp/no-mutating-methods
 
-  t.deepEqual([3, 5], results);
+  t.deepEqual(__, results);
 });

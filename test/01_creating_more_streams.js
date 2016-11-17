@@ -11,7 +11,7 @@ const delay = v => new Promise(
 
 test('promise outcome is also a stream', t => {
   const promise = new Promise(resolve => setTimeout(() => resolve(42), 10));
-  return most.fromPromise(promise).observe(x => t.is(x, 42));
+  return most.fromPromise(promise).observe(x => t.is(__, x));
 });
 
 test('you can create an infite stream of periodic events', async t => {
@@ -24,13 +24,13 @@ test('you can create an infite stream of periodic events', async t => {
   const stream = most.periodic(2, 1).take(3);
   const result = await run(stream).tick(5);
 
-  t.deepEqual([1, 1, 1], result.events);
+  t.deepEqual(__, result.events);
 });
 
 test('stream may end before it even started', async t => {
   const events = sinon.spy();
   await most.empty().observe(events);
-  t.false(events.called);
+  t.is(__, events.called);
 });
 
 test.cb('or it could be an empty stream that never ends', t => {
@@ -38,7 +38,7 @@ test.cb('or it could be an empty stream that never ends', t => {
 
   // lets give it a chance to finish execution
   setImmediate(() => {
-    t.false(events.calledOnce);
+    t.is(__, events.calledOnce);
     t.end();
   });
 
@@ -52,7 +52,7 @@ test('you can build a stream by computing successive items iteratively', async t
     .take(4)
     .observe(x => { sum += x; });
 
-  t.is(sum, 6);
+  t.is(__, sum);
 });
 
 test('the iterating function may return a promise', async t => {
@@ -60,10 +60,10 @@ test('the iterating function may return a promise', async t => {
   await most.iterate(x => delay(x + 1), 1)
     .take(3)
     .observe(x => { result += x; });
-  t.is(6, result);
+  t.is(__, result);
 });
 
-/* eslint-disable no-unused-vars,fp/no-loops,no-unreachable */
+/* eslint-disable fp/no-loops,no-unreachable */
 test('you can use generators as well', t => {
   function* numbers() {
     for (let i = 0; ; i++) {
@@ -74,10 +74,10 @@ test('you can use generators as well', t => {
     return most.from(numbers)
       .take(3)
       .observe(x => { sum += x; })
-      .then(() => t.is(sum, 6));
+      .then(() => t.is(__, sum));
   }
 });
-/* eslint-enable no-unused-vars,no-unreachable */
+/* eslint-enable no-unreachable */
 
 test('even async generators', async t => {
   function* countdown() {
@@ -90,9 +90,9 @@ test('even async generators', async t => {
   await most.generate(countdown, 100, 3)
     .observe(x => { result += x; });
 
-  t.is(6, result);
+  t.is(__, result);
 });
-/* eslint-enable no-unused-vars,fp/no-loops */
+/* eslint-enable fp/no-loops */
 
 test('unfold is powerful', async t => {
   // TODO: this one is too complex: explain or simplify
@@ -107,6 +107,6 @@ test('unfold is powerful', async t => {
       })),
   0).observe(x => { values.push(x); });
 
-  t.deepEqual([0, 1, 2, 3], values);
-  t.is(final, 4);
+  t.deepEqual(__, values);
+  t.is(__, final);
 });

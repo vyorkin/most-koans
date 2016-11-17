@@ -14,21 +14,21 @@ test('streams can be merged', async t => {
   const stream = most.merge(numbers, letters);
   const result = await stream.reduce((acc, v) => acc.concat(v), []);
 
-  t.deepEqual([1, 'a', 2, 'b', 3, 'c'], result);
+  t.deepEqual(__, result);
 });
 
 test('mergeArray is the same as merge but takes an array of streams', async t => {
   const stream = most.mergeArray([numbers, letters]);
   const result = await stream.reduce((acc, v) => acc.concat(v), []);
 
-  t.deepEqual([1, 'a', 2, 'b', 3, 'c'], result);
+  t.deepEqual(__, result);
 });
 
 test('you can concatenate streams', async t => {
   const stream = most.concat(numbers, letters);
   const result = await stream.reduce((acc, v) => acc.concat(v), []);
 
-  t.deepEqual([1, 2, 3, 'a', 'b', 'c'], result);
+  t.deepEqual(__, result);
 });
 
 test('combining streams is easy', async t => {
@@ -44,7 +44,7 @@ test('combining streams is easy', async t => {
   const stream = most.combine((x, y) => x + y, numbersPer2Ms, lettersPer3Ms);
   const result = await stream.reduce((acc, v) => acc.concat(v), []);
 
-  t.deepEqual(['1a', '2a', '2b', '3b', '3c'], result);
+  t.deepEqual(__, result);
 });
 
 // TODO: sample, sampleWith, zip

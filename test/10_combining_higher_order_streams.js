@@ -38,7 +38,7 @@ test('or switch to latest', async t => {
   const stream = source.switch();
   const result = await run(stream).tick(10);
 
-  t.deepEqual([5, 5], result.events);
+  t.deepEqual(__, result.events);
 });
 
 test('or merge only up to the specified concurrency', async t => {
@@ -58,7 +58,7 @@ test('or merge only up to the specified concurrency', async t => {
   const stream = source.mergeConcurrently(2);
   const result = await run(stream).tick(11);
 
-  t.deepEqual([2, 3, 2, 3, 4, 5], result.events);
+  t.deepEqual(__, result.events);
 });
 
 // TODO: add an example of pauseable and buffered pauseable streams

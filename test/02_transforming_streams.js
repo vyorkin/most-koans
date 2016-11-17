@@ -10,7 +10,7 @@ test('the map transformation relates a stream to another', async t => {
     .map(x => x.toLowerCase())
     .observe(x => { result += `${x} `; });
 
-  t.is('we hope you are enjoying this ', result);
+  t.is(__, result);
 });
 
 test('you can create a new stream by replacing each event with a constant', async t => {
@@ -19,7 +19,7 @@ test('you can create a new stream by replacing each event with a constant', asyn
     .constant(6)
     .forEach(x => { results.push(x); });
 
-  t.deepEqual([6, 6, 6], results);
+  t.deepEqual(__, results);
 });
 
 test('scan emits incremental results', async t => {
@@ -28,7 +28,7 @@ test('scan emits incremental results', async t => {
     .scan((acc, letter) => acc + letter, '')
     .observe(x => { results.push(x); });
 
-  t.deepEqual(['', 'a', 'ab', 'abc'], results);
+  t.deepEqual(__, results);
 });
 
 test('chain maps each event into a stream and then merges these streams', async t => {
@@ -43,7 +43,7 @@ test('chain maps each event into a stream and then merges these streams', async 
     .chain(x => most.iterate(v => v + 1, 1).take(x)) // alias: flatMap
     .observe(x => { results.push(x); });
 
-  t.deepEqual([1, 1, 1, 2, 2, 3], results);
+  t.deepEqual(__, results);
 });
 
 test('the beginning may end, and the ending begin', async t => {
@@ -52,7 +52,7 @@ test('the beginning may end, and the ending begin', async t => {
     .continueWith(() => most.iterate(x => x + 1, 1).take(3))
     .observe(x => { results.push(x); });
 
-  t.deepEqual(['a', 'b', 'c', 1, 2, 3], results);
+  t.deepEqual(__, results);
 });
 
 test('you can concatenate streams using concatMap', async t => {
@@ -67,7 +67,7 @@ test('you can concatenate streams using concatMap', async t => {
     .concatMap(x => most.iterate(v => v + 1, 1).take(x))
     .observe(x => { results.push(x); });
 
-  t.deepEqual([1, 1, 2, 1, 2, 3], results);
+  t.deepEqual(__, results);
 });
 
 test('use ap to apply the latest function to the latest value', async t => {
@@ -81,7 +81,7 @@ test('use ap to apply the latest function to the latest value', async t => {
     .ap(most.from([1, 2, 3, 4]))
     .observe(x => { result += x; });
 
-  t.is(30, result);
+  t.is(__, result);
 });
 
 test('you can add timestamps, if you want to', async t => {
@@ -90,8 +90,8 @@ test('you can add timestamps, if you want to', async t => {
   const result = await run(stream).tick(/* advance by 1ms */);
   const { time, value } = result.events[0];
 
-  t.truthy(time);
-  t.truthy(value);
+  t.is(__, !!time);
+  t.is(__, !!value);
 });
 
 test('every next timestamp is greater than previous', async t => {
@@ -102,7 +102,7 @@ test('every next timestamp is greater than previous', async t => {
     .map(o => o.time)
     .reduce((prev, curr) => curr > prev);
 
-  t.true(result);
+  t.is(__, result);
 });
 
 test('or just perform any side-effect', async t => {
@@ -113,6 +113,6 @@ test('or just perform any side-effect', async t => {
     .tap(x => { effects.push(x + 1); })
     .observe(x => { results.push(x); });
 
-  t.deepEqual([1, 2, 3], results);
-  t.deepEqual([2, 3, 4], effects);
+  t.deepEqual(__, results);
+  t.deepEqual(__, effects);
 });

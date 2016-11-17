@@ -10,7 +10,7 @@ test('you guessed it right - you can slice streams', async t => {
     .slice(9, 12)
     .reduce((str, l) => str + l, '');
 
-  t.is('huy', result);
+  t.is(__, result);
 });
 
 test('there is always an easier way', async t => {
@@ -18,7 +18,7 @@ test('there is always an easier way', async t => {
     .take(3)
     .reduce((acc, x) => acc + x, 0);
 
-  t.is(6, sum);
+  t.is(__, sum);
 });
 
 test('things may be skipped', async t => {
@@ -26,7 +26,7 @@ test('things may be skipped', async t => {
     .skip(3)
     .reduce((acc, x) => acc + x, 0);
 
-  t.is(9, sum);
+  t.is(__, sum);
 });
 
 test('you may use a predicate instead of a count', async t => {
@@ -34,7 +34,7 @@ test('you may use a predicate instead of a count', async t => {
     .skipWhile(x => x < 3)
     .reduce((acc, x) => acc * x, 1);
 
-  t.is(60, product);
+  t.is(__, product);
 });
 
 test('use a takeWhile to do the opposite thing', async t => {
@@ -49,7 +49,7 @@ test('use a takeWhile to do the opposite thing', async t => {
 
   const result = await run(stream).tick(20);
 
-  t.is(result.end.value, 27);
+  t.is(__, result.end.value);
 });
 
 test('another stream may be a signal to stop', async t => {
@@ -65,7 +65,7 @@ test('another stream may be a signal to stop', async t => {
   const stream = source.until(signal); // alias: takeUntil
   const result = await run(stream).tick(200);
 
-  t.deepEqual([2, 4, 8, 16], result.events);
+  t.deepEqual(__, result.events);
 });
 
 test('or a signal to start', async t => {
@@ -79,10 +79,10 @@ test('or a signal to start', async t => {
   const stream = source.since(signal); // alias: skipUntil
   const result = await run(stream).tick(1000);
 
-  t.deepEqual([1, 1, 1, 1, 1], result.events);
+  t.deepEqual(__, result.events);
 });
 
-test('piece of time', async t => {
+test('you may slice a piece of time', async t => {
   const timeWindow = (offset, duration) => most
     .of().delay(offset)
     .constant(most.of().delay(duration));
@@ -102,5 +102,5 @@ test('piece of time', async t => {
   const stream = source.during(piece);
   const result = await run(stream).tick(450);
 
-  t.deepEqual([4, 5], result.events);
+  t.deepEqual(__, result.events);
 });

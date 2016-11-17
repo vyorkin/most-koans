@@ -9,7 +9,7 @@ test('you can recover from a stream failure', async t => {
     .recoverWith(e => most.just(e + 2)) // alias: flatMapError
     .observe(x => { result = x; });
 
-  t.is(result, 1);
+  t.is(__, result);
 });
 
 test('or create a stream in the error state', t => {

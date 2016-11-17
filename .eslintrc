@@ -20,7 +20,7 @@
     "operator-linebreak": ["error", "after"],
     "arrow-body-style": 0,
     "no-plusplus": 0,
-    "no-unused-vars": ["error", { "varsIgnorePattern": "__" }],
+    "no-unused-vars": 0,
 
     "fp/no-class": 0,
     "fp/no-this": 0,

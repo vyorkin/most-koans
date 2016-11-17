@@ -27,6 +27,9 @@ You can run the tests by calling `npm test` at your terminal window.
 ~/projects/github/most-koans $ npm test
 ```
 
+For now, you have to update `"test": "ava --watch test/00_creating_streams.js"` in `packge.json`
+and restart a test runner with `npm test` when you ready to move to the next chapter.
+
 ### Red, Green, Refactor
 
 In test-driven development (TDD) the mantra has always been red: write a failing test and run it,
