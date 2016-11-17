@@ -15,7 +15,7 @@ test('you can apply a transducer to a stream', async t => {
   const results = [];
   await most.from([1, 2, 3, 4, 5, 6, 7, 8, 9])
     .transduce(transducer)
-    .observe(x => { results.push(x); }); // eslint-disable-line fp/no-mutating-methods
+    .observe(x => { results.push(x); });
 
   t.deepEqual(__, results);
 });
@@ -31,7 +31,7 @@ test('use anything that implements the de facto transducer protocol', async t =>
   const results = [];
   await most.from([1, 2, 3, 4, 5, 6, 7, 8, 9])
     .transduce(transducer)
-    .observe(x => { results.push(x); }); // eslint-disable-line fp/no-mutating-methods
+    .observe(x => { results.push(x); });
 
   t.deepEqual(__, results);
 });

@@ -1,4 +1,4 @@
-/* eslint-disable fp/no-loops,fp/no-let,ava/test-title,ava/no-todo-test,ava/no-skip-test,ava/prefer-async-await,max-len */
+/* eslint-disable fp/no-loops,ava/test-title,ava/no-todo-test,ava/no-skip-test,ava/prefer-async-await,max-len */
 
 import test from 'ava';
 
@@ -44,4 +44,4 @@ test.failing('I should fail as well', t => {
 
 test.todo('do something dude');
 
-/* eslint-enable fp/no-loops,fp/no-let,ava/test-title,ava/no-todo-test,ava/no-skip-test,ava/prefer-async-await,max-len */
+/* eslint-enable fp/no-loops,ava/test-title,ava/no-todo-test,ava/no-skip-test,ava/prefer-async-await,max-len */
