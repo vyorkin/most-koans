@@ -30,13 +30,11 @@ test('streams are reducible to promise for the ultimate result', async t => {
 
 test('use drain if you dont give a fuck about the events', async t => {
   const results = [];
-  const events = spy();
 
   await most.from([1, 2, 3])
     .tap(x => { results.push(x); })
     .drain();
 
-  t.is(__, events.called);
   t.deepEqual(__, results);
 });
 
