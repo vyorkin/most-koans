@@ -19,7 +19,7 @@ test('you can join streams', async t => {
   const stream = source.join();
   const result = await run(stream).tick(6);
 
-  t.deepEqual([2, 3, 2, 3, 2], result.events);
+  t.deepEqual([__], result.events);
 });
 
 // older streams do not merge, latest stream win

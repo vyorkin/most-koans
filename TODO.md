@@ -1,3 +1,3 @@
 [x] Project skeleton
-[ ] Port koans from RxJSKoans
-[ ] Use most-test where applicable
+[x] Port koans from RxJSKoans
+[x] Use most-test where applicable
